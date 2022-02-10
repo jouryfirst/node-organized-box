@@ -18,3 +18,5 @@ seq.authenticate().then(() => {
 }).catch((e) => {
   console.log('err', e)
 })
+
+module.exports = seq
