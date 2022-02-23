@@ -6,28 +6,14 @@
  * @Description: 路由
  */
 const router = require('koa-router')()
-const {add} = require('../controller/box')
+const goodsRouter = require('../controller/goods')
 
 router.prefix('/api/goods')
 
-router.post('/addGoods', async (ctx, next) => {
-  const {
-    goodsId,
-    goodsName,
-    goodsCount,
-    room,
-    category,
-    goodsTag,
-    remark
-  } = ctx.request.body
-  ctx.body = await add({goodsId,
-    goodsName,
-    goodsCount,
-    room,
-    category,
-    goodsTag,
-    remark})
-})
+// 添加物品
+router.post('/addGoods', goodsRouter.addGoods)
 
+// 获取物品列表
+router.post('/getGoodsList', goodsRouter.getGoodsList)
 
 module.exports = router
