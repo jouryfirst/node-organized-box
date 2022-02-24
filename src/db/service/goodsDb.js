@@ -9,9 +9,9 @@ const { GoodsBox } = require('../model')
 
 /**
  * 添加物品
- * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,room,categoryCode,goodsTag,remark }
+ * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,roomCode,categoryCode,goodsTag,remark }
  */
-async function addGoods({ goodsId, goodsName, goodsCount, roomCode, categoryCode = '', goodsTag= '', remark= '' }) {
+async function addGoods({ goodsId, goodsName, goodsCount, roomCode, categoryCode, goodsTag= '', remark= '' }) {
   const result = await GoodsBox.create({
     goodsId,
     goodsName,
@@ -26,7 +26,7 @@ async function addGoods({ goodsId, goodsName, goodsCount, roomCode, categoryCode
 
 /**
  * 查询物品
- * @param {Object} param0 查询物品 { goodsId,goodsName,goodsCount,room,category,goodsTag,remark }
+ * @param {Object} param0 查询物品 { goodsId,goodsName,goodsCount,roomCode,category,goodsTag,remark }
  */
 async function getGoods({ pageNo = 1, pageSize = 50, roomCode }) {
   const result = await GoodsBox.findAndCountAll({

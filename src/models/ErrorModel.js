@@ -18,5 +18,20 @@ module.exports = {
   deleteRoomFail: {
     code: '-1',
     message: '删除房间失败'
+  },
+  // 添加物品类别失败
+  addCategoryFail: {
+    code: '-1',
+    message: '添加物品类别失败'
+  },
+  // 更新物品类别失败
+  editCategoryFail: {
+    code: '-1',
+    message: '更新物品类别失败'
+  },
+  // 删除物品类别失败
+  deleteCategoryFail: {
+    code: '-1',
+    message: '删除物品类别失败'
   }
 }

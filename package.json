@@ -6,6 +6,7 @@
     "start": "node bin/www",
     "dev": "cross-env NODE_ENV=dev nodemon bin/www",
     "prd": "cross-env NODE_ENV=production pm2 start bin/www",
+    "dbSync": "node src/db/sync.js",
     "test": "cross-env NODE_ENV=test jest --runInBand --forceExit --colors"
   },
   "dependencies": {

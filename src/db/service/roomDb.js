@@ -5,7 +5,7 @@
  * @LastEditTime: 2022-02-17 19:25:12
  * @Description: sql模型及数据库逻辑
  */
-const { Room } = require('../model')
+const Room  = require('../model/Room')
 
 /**
  * 添加房间

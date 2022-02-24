@@ -6,7 +6,7 @@
  * @Description: controller-options
  */
 
-const { addRoom, editRoom, getRoomsList, deleteRoom } = require('../models/options')
+const { addRoom, editRoom, getRoomsList, deleteRoom, addCategory, editCategory, getCategoriesList, deleteCategory } = require('../models/options')
 
 const enumRouter = {
   addRoom: async (ctx, next) => {
@@ -30,6 +30,28 @@ const enumRouter = {
       id
     } = ctx.query
     ctx.body = await deleteRoom({id})
+  },
+  addCategory: async (ctx, next) => {
+    const {
+      categoryName
+    } = ctx.query
+    ctx.body = await addCategory({categoryName})
+  },
+  editCategory: async (ctx, next) => {
+    const {
+      id,
+      categoryName
+    } = ctx.query
+    ctx.body = await editCategory({id, categoryName})
+  },
+  getCategoriesList: async (ctx, next) => {
+    ctx.body = await getCategoriesList()
+  },
+  deleteCategory: async (ctx, next) => {
+    const {
+      id
+    } = ctx.query
+    ctx.body = await deleteCategory({id})
   }
 }
 

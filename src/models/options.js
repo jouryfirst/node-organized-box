@@ -6,8 +6,9 @@
  * @Description: options操作
  */
 const { createRoom,updateRoom, searchRoom, destroyRoom } = require('../db/service/roomDb')
+const { createCategory,updateCategory, searchCategory, destroyCategory } = require('../db/service/categoryDb')
 const { SuccessModel, ErrorModel } = require('./ResModel')
-const { addRoomFail, editRoomFail, deleteRoomFail } = require('./ErrorModel')
+const { addRoomFail, editRoomFail, deleteRoomFail, addCategoryFail, editCategoryFail, deleteCategoryFail } = require('./ErrorModel')
 
 /**
  * 添加房间
@@ -70,9 +71,76 @@ async function deleteRoom ({ id }) {
     return new ErrorModel(deleteRoomFail)
   }
 }
+
+/**
+ * 添加物品类别
+ * @param {Object} param0 添加物品类别 { categoryName }
+ */
+async function addCategory ({ categoryName }) {
+  try {
+    const goods = await createCategory({
+      categoryName
+    })
+    return new SuccessModel(goods)
+  } catch (e) {
+    console.log(e)
+    return new ErrorModel(addCategoryFail)
+  }
+}
+
+/**
+ * 更新物品类别
+ * @param {Object} param0 更新物品类别 { id, categoryName }
+ */
+async function editCategory ({ id, categoryName }) {
+  try {
+    const goods = await updateCategory({
+      id,
+      categoryName
+    })
+    return new SuccessModel(goods)
+  } catch (e) {
+    console.log(e)
+    return new ErrorModel(editCategoryFail)
+  }
+}
+
+/**
+ * 获取物品类别列表
+ * @param {Object} param0 物品类别列表 {  }
+ */
+async function getCategoriesList () {
+  try {
+    const result = await searchCategory()
+    return new SuccessModel(result)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+/**
+ * 删除物品类别
+ * @param {Object} param0 删除房物品类别 { id }
+ */
+async function deleteCategory ({ id }) {
+  try {
+    const goods = await destroyCategory({
+      id
+    })
+    return new SuccessModel(goods)
+  } catch (e) {
+    console.log(e)
+    return new ErrorModel(deleteCategoryFail)
+  }
+}
+
 module.exports = {
   addRoom,
   editRoom,
   getRoomsList,
-  deleteRoom
+  deleteRoom,
+  addCategory,
+  editCategory,
+  getCategoriesList,
+  deleteCategory
 }
