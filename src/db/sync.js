@@ -1,6 +1,6 @@
 const seq = require('./seq')
 
-require('../models/model')
+require('./model/index')
 
 seq.authenticate().then(() => {
   console.log('authenticate ok')

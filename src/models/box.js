@@ -6,21 +6,21 @@
  * @Description: boxModel
  */
 
-const { addGoods, getGoods } = require('./boxDb')
+const { addGoods, getGoods } = require('../db/service/goodsDb')
 const { SuccessModel, ErrorModel } = require('./ResModel')
 const { addGoodsFail } = require('./ErrorModel')
 
 /**
  * 添加物品
- * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,room,category,goodsTag,remark }
+ * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,roomCode,category,goodsTag,remark }
  */
-async function add({ goodsId, goodsName, goodsCount, room, category = '', goodsTag= '', remark= '' }) {
+async function add({ goodsId, goodsName, goodsCount, roomCode, category = '', goodsTag= '', remark= '' }) {
   try {
     const goods = await addGoods({
       goodsId,
       goodsName,
       goodsCount,
-      room,
+      roomCode,
       category,
       goodsTag,
       remark
@@ -33,11 +33,11 @@ async function add({ goodsId, goodsName, goodsCount, room, category = '', goodsT
 }
 /**
  * 获取物品列表
- * @param {Object} param0 物品列表 { pageNo, pageSize, room, goodsTag }
+ * @param {Object} param0 物品列表 { pageNo, pageSize, roomCode, goodsTag }
  */
-async function getGoodsList ({pageNo = 1, pageSize = 50, room }) {
+async function getGoodsList ({pageNo = 1, pageSize = 50, roomCode }) {
   try {
-    const result = await getGoods({pageNo, pageSize, room})
+    const result = await getGoods({pageNo, pageSize, roomCode})
     return new SuccessModel(result)
   } catch (e) {
     console.log(e)

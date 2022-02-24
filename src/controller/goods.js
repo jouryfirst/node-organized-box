@@ -14,23 +14,23 @@ const goodsRouter = {
       goodsId,
       goodsName,
       goodsCount,
-      room,
-      category,
+      roomCode,
+      categoryCode,
       goodsTag,
       remark
     } = ctx.request.body
     ctx.body = await add({goodsId,
       goodsName,
       goodsCount,
-      room,
-      category,
+      roomCode,
+      categoryCode,
       goodsTag,
       remark})
   },
   getGoodsList: async (ctx, next) => {
-    const {pageNo, pageSize, room} = ctx.request.body
+    const {pageNo, pageSize, roomCode} = ctx.request.body
     ctx.body = await getGoodsList({
-      pageNo, pageSize, room
+      pageNo, pageSize, roomCode
     })
   }
 }

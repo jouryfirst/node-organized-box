@@ -5,19 +5,19 @@
  * @LastEditTime: 2022-02-17 19:25:12
  * @Description: sql模型及数据库逻辑
  */
-const GoodsBox = require('./model')
+const { GoodsBox } = require('../model')
 
 /**
  * 添加物品
- * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,room,category,goodsTag,remark }
+ * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,room,categoryCode,goodsTag,remark }
  */
-async function addGoods({ goodsId, goodsName, goodsCount, room, category = '', goodsTag= '', remark= '' }) {
+async function addGoods({ goodsId, goodsName, goodsCount, roomCode, categoryCode = '', goodsTag= '', remark= '' }) {
   const result = await GoodsBox.create({
     goodsId,
     goodsName,
     goodsCount,
-    room,
-    category,
+    roomCode,
+    categoryCode,
     goodsTag,
     remark
   })
@@ -28,7 +28,7 @@ async function addGoods({ goodsId, goodsName, goodsCount, room, category = '', g
  * 查询物品
  * @param {Object} param0 查询物品 { goodsId,goodsName,goodsCount,room,category,goodsTag,remark }
  */
-async function getGoods({ pageNo = 1, pageSize = 50, room }) {
+async function getGoods({ pageNo = 1, pageSize = 50, roomCode }) {
   const result = await GoodsBox.findAndCountAll({
     limit: pageSize, // 每页多少条
     offset: pageSize * (pageNo - 1), // 跳过多少条
@@ -36,7 +36,7 @@ async function getGoods({ pageNo = 1, pageSize = 50, room }) {
       ['id', 'desc']
     ],
     where: {
-      room
+      roomCode
     }
   })
   let goodsList = result.rows.map(row => row.dataValues)
