@@ -11,14 +11,16 @@ const { GoodsBox } = require('../model')
  * 添加物品
  * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,roomCode,categoryCode,goodsTag,remark }
  */
-async function addGoods({ goodsId, goodsName, goodsCount, roomCode, categoryCode, goodsTag= '', remark= '' }) {
+async function addGoods({ goodsId, goodsName, goodsCount, roomCode, categoryCode, position, goodsTag= '', importantTag = 1, remark= '' }) {
   const result = await GoodsBox.create({
     goodsId,
     goodsName,
     goodsCount,
     roomCode,
     categoryCode,
+    position,
     goodsTag,
+    importantTag,
     remark
   })
   return result.dataValues

@@ -31,14 +31,24 @@ const GoodsBox = seq.define('goods', {
     allowNULL: false,
     comment: '物品类型Code'
   },
+  position: {
+    type: Sequelize.STRING,
+    allowNULL: true,
+    comment: '物品位置'
+  },
   goodsTag: {
     type: Sequelize.STRING,
+    allowNULL: true,
+    comment: '物品品牌'
+  },
+  importantTag: {
+    type: Sequelize.INTEGER,
     allowNULL: false,
-    comment: '标签'
+    comment: '重要程度'
   },
   remark: {
     type: Sequelize.STRING,
-    allowNULL: false,
+    allowNULL: true,
     comment: '备注'
   }
 })
