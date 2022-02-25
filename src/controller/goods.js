@@ -16,6 +16,7 @@ const goodsRouter = {
       goodsCount,
       roomCode,
       categoryCode,
+      position,
       goodsTag,
       remark
     } = ctx.request.body
@@ -24,13 +25,17 @@ const goodsRouter = {
       goodsCount,
       roomCode,
       categoryCode,
+      position,
       goodsTag,
       remark})
   },
   getGoodsList: async (ctx, next) => {
-    const {pageNo, pageSize, roomCode} = ctx.request.body
+    /**
+     * @param {Object} param0  { sortType分类方式,0-不分类，1-按位置，2-按物品类型 }
+     */
+    const {pageNo, pageSize, goodName, roomCode, categoryCode, sortType} = ctx.request.body
     ctx.body = await getGoodsList({
-      pageNo, pageSize, roomCode
+      pageNo, pageSize, goodName, roomCode, categoryCode, sortType
     })
   }
 }

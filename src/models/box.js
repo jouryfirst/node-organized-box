@@ -6,7 +6,7 @@
  * @Description: boxModel
  */
 
-const { addGoods, getGoods } = require('../db/service/goodsDb')
+const { addGoods, getGoods, getGroupBySortType } = require('../db/service/goodsDb')
 const { SuccessModel, ErrorModel } = require('./ResModel')
 const { addGoodsFail } = require('./ErrorModel')
 
@@ -14,7 +14,7 @@ const { addGoodsFail } = require('./ErrorModel')
  * 添加物品
  * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,roomCode,categoryCode,goodsTag,remark }
  */
-async function add({ goodsId, goodsName, goodsCount, roomCode, categoryCode, goodsTag= '', remark= '' }) {
+async function add({ goodsId, goodsName, goodsCount, roomCode, categoryCode, position, goodsTag= '', remark= '' }) {
   try {
     const goods = await addGoods({
       goodsId,
@@ -22,6 +22,7 @@ async function add({ goodsId, goodsName, goodsCount, roomCode, categoryCode, goo
       goodsCount,
       roomCode,
       categoryCode,
+      position,
       goodsTag,
       remark
     })
@@ -35,9 +36,15 @@ async function add({ goodsId, goodsName, goodsCount, roomCode, categoryCode, goo
  * 获取物品列表
  * @param {Object} param0 物品列表 { pageNo, pageSize, roomCode, goodsTag }
  */
-async function getGoodsList ({pageNo = 1, pageSize = 50, roomCode }) {
+async function getGoodsList ({pageNo = 1, pageSize = 50, goodName, roomCode, categoryCode, sortType }) {
   try {
-    const result = await getGoods({pageNo, pageSize, roomCode})
+    let result
+    if (sortType === 0) {
+      result = await getGoods({pageNo, pageSize, goodName, roomCode, categoryCode})
+    } else {
+      result = await getGroupBySortType({pageNo, pageSize, goodName, roomCode, categoryCode, sortType})
+    }
+
     return new SuccessModel(result)
   } catch (e) {
     console.log(e)

@@ -50,6 +50,12 @@ const GoodsBox = seq.define('goods', {
     type: Sequelize.STRING,
     allowNULL: true,
     comment: '备注'
+  },
+  // deleteCode, 0-可查询，1-回收站，2-彻底删除
+  deleteCode: {
+    type: Sequelize.INTEGER,
+    allowNULL: false,
+    comment: '删除标识'
   }
 })
 
