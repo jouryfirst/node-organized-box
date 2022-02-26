@@ -12,6 +12,10 @@ const Category  = require('../model/Category')
  * @param {Object} param0 添加物品类别 { CategoryName }
  */
 async function createCategory({ categoryName }) {
+  const isRepeat = await Category.findOne({where: {categoryName}})
+  if (isRepeat) {
+    return 'repeat'
+  }
   const result = await Category.create({
     categoryName
   })
@@ -23,6 +27,10 @@ async function createCategory({ categoryName }) {
  * @param {Object} param0 更新物品类别 { id, categoryName }
  */
 async function updateCategory({ id, categoryName }) {
+  const isRepeat = await Category.findOne({where: {categoryName}})
+  if (isRepeat) {
+    return 'repeat'
+  }
   const result = await Category.update({
     categoryName
   }, {
@@ -44,11 +52,10 @@ async function searchCategory() {
     // ]
   })
   let CategoryList = result.rows.map(row => row.dataValues)
-
-  return {
-    count: result.count,
-    CategoryList
-  }
+  CategoryList.forEach(item => {
+    item.code = item.id
+  })
+  return CategoryList
 }
 
 /**

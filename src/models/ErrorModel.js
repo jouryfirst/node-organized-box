@@ -29,6 +29,11 @@ module.exports = {
     code: '-1',
     message: '添加物品类别失败'
   },
+  // 重复物品类别名称
+  repeatCategory: {
+    code: '-1',
+    message: '已有该名称物品类别，禁止重复添加'
+  },
   // 更新物品类别失败
   editCategoryFail: {
     code: '-1',
