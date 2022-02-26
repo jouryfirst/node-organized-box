@@ -36,15 +36,14 @@ async function add({ goodsId, goodsName, goodsCount, roomCode, categoryCode, pos
  * 获取物品列表
  * @param {Object} param0 物品列表 { pageNo, pageSize, roomCode, goodsTag }
  */
-async function getGoodsList ({pageNo = 1, pageSize = 50, goodName, roomCode, categoryCode, sortType }) {
+async function getGoodsList ({pageNo = 1, pageSize = 50, goodsName, roomCode, categoryCode, sortType = 0 }) {
   try {
     let result
     if (sortType === 0) {
-      result = await getGoods({pageNo, pageSize, goodName, roomCode, categoryCode})
+      result = await getGoods({pageNo, pageSize, goodsName, roomCode, categoryCode})
     } else {
-      result = await getGroupBySortType({pageNo, pageSize, goodName, roomCode, categoryCode, sortType})
+      result = await getGroupBySortType({pageNo, pageSize, goodsName, roomCode, categoryCode, sortType})
     }
-
     return new SuccessModel(result)
   } catch (e) {
     console.log(e)

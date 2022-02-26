@@ -33,9 +33,9 @@ const goodsRouter = {
     /**
      * @param {Object} param0  { sortType分类方式,0-不分类，1-按位置，2-按物品类型 }
      */
-    const {pageNo, pageSize, goodName, roomCode, categoryCode, sortType} = ctx.request.body
+    const {pageNo, pageSize, goodsName, roomCode, categoryCode, sortType} = ctx.request.body
     ctx.body = await getGoodsList({
-      pageNo, pageSize, goodName, roomCode, categoryCode, sortType
+      pageNo, pageSize, goodsName, roomCode, categoryCode, sortType
     })
   }
 }

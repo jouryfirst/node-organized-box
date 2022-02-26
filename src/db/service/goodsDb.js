@@ -7,6 +7,7 @@
  */
 const { GoodsBox } = require('../model')
 const Sequelize = require('sequelize')
+const { Op } = require("sequelize")
 const { formateGroup } = require('./formateFn')
 
 /**
@@ -32,11 +33,13 @@ async function addGoods({ goodsId, goodsName, goodsCount, roomCode, categoryCode
  * 查询物品
  * @param {Object} param0 查询物品 { goodsId,goodsName,goodsCount,roomCode,category,goodsTag,remark }
  */
-async function getGoods({ pageNo = 1, pageSize = 50, goodName, roomCode, categoryCode }) {
+async function getGoods({ pageNo = 1, pageSize = 50, goodsName, roomCode, categoryCode }) {
   // 拼接查询条件
   const whereData = {}
-  if (goodName) {
-    whereData.goodName = goodName
+  if (goodsName) {
+    whereData.goodsName = {
+      [Op.like]: `%${goodsName}%`
+    }
   }
   if (roomCode) {
     whereData.roomCode = roomCode
