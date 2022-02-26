@@ -9,6 +9,11 @@ module.exports = {
     code: '-1',
     message: '添加房间失败'
   },
+  // 重复房间名称
+  repeatRoom: {
+    code: '-1',
+    message: '已有该名称房间，禁止重复添加'
+  },
   // 更新房间失败
   editRoomFail: {
     code: '-1',

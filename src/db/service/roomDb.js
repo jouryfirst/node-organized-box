@@ -12,6 +12,10 @@ const Room  = require('../model/Room')
  * @param {Object} param0 添加房间 { roomName }
  */
 async function createRoom({ roomName }) {
+  const isRepeat = await Room.findOne({where: {roomName}})
+  if (isRepeat) {
+    return 'repeat'
+  }
   const result = await Room.create({
     roomName
   })
@@ -23,6 +27,10 @@ async function createRoom({ roomName }) {
  * @param {Object} param0 更新房间 { id, roomName }
  */
 async function updateRoom({ id, roomName }) {
+  const isRepeat = await Room.findOne({where: {roomName}})
+  if (isRepeat) {
+    return 'repeat'
+  }
   const result = await Room.update({
     roomName
   }, {
@@ -44,11 +52,10 @@ async function searchRoom() {
     // ]
   })
   let roomList = result.rows.map(row => row.dataValues)
-
-  return {
-    count: result.count,
-    roomList
-  }
+  roomList.forEach(item => {
+    item.code = item.id
+  })
+  return roomList
 }
 
 /**

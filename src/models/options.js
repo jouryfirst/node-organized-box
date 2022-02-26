@@ -8,7 +8,7 @@
 const { createRoom,updateRoom, searchRoom, destroyRoom } = require('../db/service/roomDb')
 const { createCategory,updateCategory, searchCategory, destroyCategory } = require('../db/service/categoryDb')
 const { SuccessModel, ErrorModel } = require('./ResModel')
-const { addRoomFail, editRoomFail, deleteRoomFail, addCategoryFail, editCategoryFail, deleteCategoryFail } = require('./ErrorModel')
+const { addRoomFail, repeatRoom, editRoomFail, deleteRoomFail, addCategoryFail, editCategoryFail, deleteCategoryFail } = require('./ErrorModel')
 
 /**
  * 添加房间
@@ -19,6 +19,9 @@ async function addRoom ({ roomName }) {
     const goods = await createRoom({
       roomName
     })
+    if (goods === 'repeat') {
+      return new ErrorModel(repeatRoom)
+    }
     return new SuccessModel(goods)
   } catch (e) {
     console.log(e)
@@ -36,6 +39,9 @@ async function editRoom ({ id, roomName }) {
       id,
       roomName
     })
+    if (goods === 'repeat') {
+      return new ErrorModel(repeatRoom)
+    }
     return new SuccessModel(goods)
   } catch (e) {
     console.log(e)

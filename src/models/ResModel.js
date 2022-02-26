@@ -27,7 +27,7 @@ class SuccessModel extends BaseModel {
  * 失败的数据模型
  */
 class ErrorModel extends BaseModel {
-  constructor({ errno, message }) {
+  constructor({ code, message }) {
     super({
       code,
       message
