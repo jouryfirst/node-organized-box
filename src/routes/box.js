@@ -16,4 +16,7 @@ router.post('/addGoods', goodsRouter.addGoods)
 // 获取物品列表
 router.post('/getGoodsList', goodsRouter.getGoodsList)
 
+// 获取物品详情
+router.get('/getGoodsDetail', goodsRouter.getGoodsDetail)
+
 module.exports = router

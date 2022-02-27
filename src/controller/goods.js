@@ -6,7 +6,7 @@
  * @Description: controller
  */
 
-const {add, getGoodsList} = require('../models/box')
+const {add, getGoodsList, getGoodsDetail} = require('../models/box')
 
 const goodsRouter = {
   addGoods: async (ctx, next) => {
@@ -37,6 +37,10 @@ const goodsRouter = {
     ctx.body = await getGoodsList({
       pageNo, pageSize, goodsName, roomCode, categoryCode, sortType
     })
+  },
+  getGoodsDetail: async (ctx, next) => {
+    const { id } = ctx.query
+    ctx.body = await getGoodsDetail({id})
   }
 }
 

@@ -6,7 +6,7 @@
  * @Description: boxModel
  */
 
-const { addGoods, getGoods, getGroupBySortType } = require('../db/service/goodsDb')
+const { addGoods, getGoods, getGroupBySortType, checkGoods } = require('../db/service/goodsDb')
 const { SuccessModel, ErrorModel } = require('./ResModel')
 const { addGoodsFail } = require('./ErrorModel')
 
@@ -47,9 +47,28 @@ async function getGoodsList ({pageNo = 1, pageSize = 50, goodsName, roomCode, ca
     return new SuccessModel(result)
   } catch (e) {
     console.log(e)
+    return new ErrorModel({
+      code: '-1',
+      message: '获取物品列表失败'
+    })
   }
 }
+
+async function getGoodsDetail ({id}) {
+  try {
+    const result = await checkGoods({id})
+    return new SuccessModel(result)
+  } catch (e) {
+    console.log(e)
+    return new ErrorModel({
+      code: '-1',
+      message: '获取详情失败'
+    })
+  }
+}
+
 module.exports = {
   add,
-  getGoodsList
+  getGoodsList,
+  getGoodsDetail
 }

@@ -78,8 +78,13 @@ async function getGroupBySortType({ pageNo = 1, pageSize = 50, sortType }) {
   return result
 }
 
+async function checkGoods ({id}) {
+  const result = await GoodsBox.findOne({where: {id}})
+  return result
+}
 module.exports = {
   addGoods,
   getGoods,
-  getGroupBySortType
+  getGroupBySortType,
+  checkGoods
 }
