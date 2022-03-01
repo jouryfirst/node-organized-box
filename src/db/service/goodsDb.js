@@ -77,14 +77,42 @@ async function getGroupBySortType({ pageNo = 1, pageSize = 50, sortType }) {
   result = formateGroup(result)
   return result
 }
-
+/**
+ * 查询物品详情
+ * @param {Object} param0 查询物品详情{ id }
+ */
 async function checkGoods ({id}) {
   const result = await GoodsBox.findOne({where: {id}})
+  return result
+}
+/**
+ * 更新物品
+ * @param {Object} param0 查询物品详情{ id }
+ * 物品名称不能重复
+ */
+async function updateGoods ({id, goodsName, goodsCount, roomCode, categoryCode, position, goodsTag, importantTag, remark}) {
+  const isRepeat = await GoodsBox.findOne({where: {goodsName}})
+  if (isRepeat) {
+    return 'repeat'
+  }
+  const result = await GoodsBox.update(
+    {
+      goodsCount,
+      roomCode,
+      categoryCode,
+      position,
+      goodsTag,
+      importantTag,
+      remark
+    },
+    {where: {id}}
+    )
   return result
 }
 module.exports = {
   addGoods,
   getGoods,
   getGroupBySortType,
-  checkGoods
+  checkGoods,
+  updateGoods
 }
