@@ -15,7 +15,9 @@ const goodsRouter = {
       goodsName,
       goodsCount,
       roomCode,
+      roomName,
       categoryCode,
+      categoryName,
       position,
       goodsTag,
       remark
@@ -24,7 +26,9 @@ const goodsRouter = {
       goodsName,
       goodsCount,
       roomCode,
+      roomName,
       categoryCode,
+      categoryName,
       position,
       goodsTag,
       remark})

@@ -14,14 +14,16 @@ const { addGoodsFail } = require('./ErrorModel')
  * 添加物品
  * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,roomCode,categoryCode,goodsTag,remark }
  */
-async function add({ goodsId, goodsName, goodsCount, roomCode, categoryCode, position, goodsTag= '', remark= '' }) {
+async function add({ goodsId, goodsName, goodsCount, roomCode, roomName, categoryCode, categoryName, position, goodsTag= '', remark= '' }) {
   try {
     const goods = await addGoods({
       goodsId,
       goodsName,
       goodsCount,
       roomCode,
+      roomName,
       categoryCode,
+      categoryName,
       position,
       goodsTag,
       remark

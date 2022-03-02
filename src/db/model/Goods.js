@@ -26,10 +26,20 @@ const GoodsBox = seq.define('goods', {
     allowNULL: false,
     comment: '房间Code'
   },
+  roomName: {
+    type: Sequelize.STRING,
+    allowNULL: false,
+    comment: '房间名称'
+  },
   categoryCode: {
     type: Sequelize.INTEGER,
     allowNULL: false,
     comment: '物品类型Code'
+  },
+  categoryName: {
+    type: Sequelize.STRING,
+    allowNULL: false,
+    comment: '物品类型名称'
   },
   position: {
     type: Sequelize.STRING,

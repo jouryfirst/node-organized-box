@@ -14,13 +14,15 @@ const { formateGroup } = require('./formateFn')
  * 添加物品
  * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,roomCode,categoryCode,goodsTag,remark }
  */
-async function addGoods({ goodsId, goodsName, goodsCount, roomCode, categoryCode, position, goodsTag= '', importantTag = 1, remark= '' }) {
+async function addGoods({ goodsId, goodsName, goodsCount, roomCode, roomName, categoryCode, categoryName, position, goodsTag= '', importantTag = 1, remark= '' }) {
   const result = await GoodsBox.create({
     goodsId,
     goodsName,
     goodsCount,
     roomCode,
+    roomName,
     categoryCode,
+    categoryName,
     position,
     goodsTag,
     importantTag,
@@ -87,10 +89,10 @@ async function checkGoods ({id}) {
 }
 /**
  * 更新物品
- * @param {Object} param0 查询物品详情{ id }
+ * @param {Object} param0 更新物品{ id }
  * 物品名称不能重复
  */
-async function updateGoods ({id, goodsName, goodsCount, roomCode, categoryCode, position, goodsTag, importantTag, remark}) {
+async function updateGoods ({id, goodsName, goodsCount, roomCode, roomName, categoryCode, categoryName, position, goodsTag, importantTag, remark}) {
   const isRepeat = await GoodsBox.findOne({where: {goodsName}})
   if (isRepeat) {
     return 'repeat'
@@ -99,7 +101,9 @@ async function updateGoods ({id, goodsName, goodsCount, roomCode, categoryCode, 
     {
       goodsCount,
       roomCode,
+      roomName,
       categoryCode,
+      categoryName,
       position,
       goodsTag,
       importantTag,
