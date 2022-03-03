@@ -92,13 +92,27 @@ async function getGoods({ pageNo = 1, pageSize = 50, goodsName, roomCode, catego
  * 查询物品架分类及个数
  * @param {Object} param0 查询物品架分类及个数 { pageNo,pageSize,sortType }
  */
-async function getGroupBySortType({ pageNo = 1, pageSize = 50, sortType }) {
+async function getGroupBySortType({ pageNo = 1, pageSize = 50, goodsName, roomCode, categoryCode, sortType }) {
   const groupData = sortType === 1 ? 'position' : 'categoryName'
+  // 拼接查询条件
+  const whereData = {}
+  if (goodsName) {
+    whereData.goodsName = {
+      [Op.like]: `%${goodsName}%`
+    }
+  }
+  if (roomCode) {
+    whereData.roomCode = roomCode
+  }
+  if (categoryCode) {
+    whereData.categoryCode = categoryCode
+  }
   let result = await GoodsBox.findAll({
     limit: pageSize, // 每页多少条
     offset: pageSize * (pageNo - 1), // 跳过多少条
     attributes: [groupData, [Sequelize.fn("COUNT", Sequelize.col(groupData)), "count"]],
-    group: groupData
+    group: groupData,
+    where: whereData
   })
   result = formateGroup(result)
   return result
