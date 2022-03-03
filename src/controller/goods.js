@@ -6,7 +6,7 @@
  * @Description: controller
  */
 
-const {add, getGoodsList, getGoodsDetail} = require('../models/box')
+const {add, update, getGoodsList, getGoodsDetail} = require('../models/box')
 
 const goodsRouter = {
   addGoods: async (ctx, next) => {
@@ -19,6 +19,7 @@ const goodsRouter = {
       categoryCode,
       categoryName,
       position,
+      importantTag,
       goodsTag,
       remark
     } = ctx.request.body
@@ -30,6 +31,34 @@ const goodsRouter = {
       categoryCode,
       categoryName,
       position,
+      importantTag,
+      goodsTag,
+      remark})
+  },
+  editGoods: async (ctx, next) => {
+    const {
+      id,
+      goodsId,
+      goodsCount,
+      roomCode,
+      roomName,
+      categoryCode,
+      categoryName,
+      position,
+      importantTag,
+      goodsTag,
+      remark
+    } = ctx.request.body
+    ctx.body = await update({
+      id,
+      goodsId,
+      goodsCount,
+      roomCode,
+      roomName,
+      categoryCode,
+      categoryName,
+      position,
+      importantTag,
       goodsTag,
       remark})
   },

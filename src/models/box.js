@@ -6,7 +6,7 @@
  * @Description: boxModel
  */
 
-const { addGoods, getGoods, getGroupBySortType, checkGoods } = require('../db/service/goodsDb')
+const { addGoods, updateGoods, getGoods, getGroupBySortType, checkGoods } = require('../db/service/goodsDb')
 const { SuccessModel, ErrorModel } = require('./ResModel')
 const { addGoodsFail } = require('./ErrorModel')
 
@@ -14,7 +14,7 @@ const { addGoodsFail } = require('./ErrorModel')
  * 添加物品
  * @param {Object} param0 添加物品 { goodsId,goodsName,goodsCount,roomCode,categoryCode,goodsTag,remark }
  */
-async function add({ goodsId, goodsName, goodsCount, roomCode, roomName, categoryCode, categoryName, position, goodsTag= '', remark= '' }) {
+async function add({ goodsId, goodsName, goodsCount, roomCode, roomName, categoryCode, categoryName, position, importantTag = 1, goodsTag= '', remark= '' }) {
   try {
     const goods = await addGoods({
       goodsId,
@@ -25,6 +25,33 @@ async function add({ goodsId, goodsName, goodsCount, roomCode, roomName, categor
       categoryCode,
       categoryName,
       position,
+      importantTag,
+      goodsTag,
+      remark
+    })
+    return new SuccessModel(goods)
+  } catch (e) {
+    console.log(e)
+    return new ErrorModel(addGoodsFail)
+  }
+}
+
+/**
+ * 更新物品
+ * @param {Object} param0 更新物品 { goodsId,goodsName,goodsCount,roomCode,categoryCode,goodsTag,remark }
+ */
+async function update({ id, goodsId, goodsCount, roomCode, roomName, categoryCode, categoryName, position, importantTag, goodsTag, remark }) {
+  try {
+    const goods = await updateGoods({
+      id,
+      goodsId,
+      goodsCount,
+      roomCode,
+      roomName,
+      categoryCode,
+      categoryName,
+      position,
+      importantTag,
       goodsTag,
       remark
     })
@@ -71,6 +98,7 @@ async function getGoodsDetail ({id}) {
 
 module.exports = {
   add,
+  update,
   getGoodsList,
   getGoodsDetail
 }

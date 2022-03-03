@@ -13,6 +13,9 @@ router.prefix('/api/goods')
 // 添加物品
 router.post('/addGoods', goodsRouter.addGoods)
 
+// 更新物品
+router.post('/editGoods', goodsRouter.editGoods)
+
 // 获取物品列表
 router.post('/getGoodsList', goodsRouter.getGoodsList)
 

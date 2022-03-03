@@ -32,6 +32,30 @@ async function addGoods({ goodsId, goodsName, goodsCount, roomCode, roomName, ca
 }
 
 /**
+ * 更新物品
+ * @param {Object} param0 更新物品 { id, goodsId,goodsCount,roomCode,categoryCode,goodsTag,remark }
+ */
+async function updateGoods({ id, goodsId, goodsCount, roomCode, roomName, categoryCode, categoryName, position, goodsTag, importantTag, remark }) {
+  const result = await GoodsBox.update({
+    goodsId,
+    goodsCount,
+    roomCode,
+    roomName,
+    categoryCode,
+    categoryName,
+    position,
+    goodsTag,
+    importantTag,
+    remark
+  }, {
+    where: {
+      id
+    }
+  })
+  return result
+}
+
+/**
  * 查询物品
  * @param {Object} param0 查询物品 { goodsId,goodsName,goodsCount,roomCode,category,goodsTag,remark }
  */
@@ -87,32 +111,7 @@ async function checkGoods ({id}) {
   const result = await GoodsBox.findOne({where: {id}})
   return result
 }
-/**
- * 更新物品
- * @param {Object} param0 更新物品{ id }
- * 物品名称不能重复
- */
-async function updateGoods ({id, goodsName, goodsCount, roomCode, roomName, categoryCode, categoryName, position, goodsTag, importantTag, remark}) {
-  const isRepeat = await GoodsBox.findOne({where: {goodsName}})
-  if (isRepeat) {
-    return 'repeat'
-  }
-  const result = await GoodsBox.update(
-    {
-      goodsCount,
-      roomCode,
-      roomName,
-      categoryCode,
-      categoryName,
-      position,
-      goodsTag,
-      importantTag,
-      remark
-    },
-    {where: {id}}
-    )
-  return result
-}
+
 module.exports = {
   addGoods,
   getGoods,
