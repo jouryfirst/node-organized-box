@@ -69,7 +69,7 @@ async function getGoods({ pageNo = 1, pageSize = 50, goodsName, roomCode, catego
  * @param {Object} param0 查询物品架分类及个数 { pageNo,pageSize,sortType }
  */
 async function getGroupBySortType({ pageNo = 1, pageSize = 50, sortType }) {
-  const groupData = sortType === 1 ? 'position' : 'categoryCode'
+  const groupData = sortType === 1 ? 'position' : 'categoryName'
   let result = await GoodsBox.findAll({
     limit: pageSize, // 每页多少条
     offset: pageSize * (pageNo - 1), // 跳过多少条

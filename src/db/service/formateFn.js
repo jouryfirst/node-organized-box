@@ -2,8 +2,8 @@ function formateGroup(list) {
   if (!list) return list
   return list.map(item => {
     return {
-      label: item.position || item.categoryCode,
-      count: item.count || 0
+      label: item.dataValues.position || item.dataValues.categoryName,
+      count: item.dataValues.count || 0
     }
   })
 }
