@@ -22,4 +22,7 @@ router.post('/getGoodsList', goodsRouter.getGoodsList)
 // 获取物品详情
 router.get('/getGoodsDetail', goodsRouter.getGoodsDetail)
 
+// 放入回收站
+router.get('/deleteGoods', goodsRouter.deleteGoods)
+
 module.exports = router

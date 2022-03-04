@@ -6,7 +6,7 @@
  * @Description: controller
  */
 
-const {add, update, getGoodsList, getGoodsDetail} = require('../models/box')
+const {add, update, getGoodsList, getGoodsDetail, softDeleteGoods} = require('../models/box')
 
 const goodsRouter = {
   addGoods: async (ctx, next) => {
@@ -66,14 +66,18 @@ const goodsRouter = {
     /**
      * @param {Object} param0  { sortType分类方式,0-不分类，1-按位置，2-按物品类型 }
      */
-    const {pageNo, pageSize, goodsName, roomCode, categoryCode, sortType} = ctx.request.body
+    const {pageNo, pageSize, goodsName, roomCode, categoryCode, position, sortType} = ctx.request.body
     ctx.body = await getGoodsList({
-      pageNo, pageSize, goodsName, roomCode, categoryCode, sortType
+      pageNo, pageSize, goodsName, roomCode, categoryCode, position, sortType
     })
   },
   getGoodsDetail: async (ctx, next) => {
     const { id } = ctx.query
     ctx.body = await getGoodsDetail({id})
+  },
+  deleteGoods: async (ctx, next) => {
+    const {id} = ctx.request.query
+    ctx.body = await softDeleteGoods({id})
   }
 }
 

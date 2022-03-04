@@ -6,7 +6,7 @@
  * @Description: boxModel
  */
 
-const { addGoods, updateGoods, getGoods, getGroupBySortType, checkGoods } = require('../db/service/goodsDb')
+const { addGoods, updateGoods, getGoods, getGroupBySortType, checkGoods, softDestroyGoods } = require('../db/service/goodsDb')
 const { SuccessModel, ErrorModel } = require('./ResModel')
 const { addGoodsFail } = require('./ErrorModel')
 
@@ -65,11 +65,11 @@ async function update({ id, goodsId, goodsCount, roomCode, roomName, categoryCod
  * 获取物品列表
  * @param {Object} param0 物品列表 { pageNo, pageSize, roomCode, goodsTag }
  */
-async function getGoodsList ({pageNo = 1, pageSize = 50, goodsName, roomCode, categoryCode, sortType = 0 }) {
+async function getGoodsList ({pageNo = 1, pageSize = 50, goodsName, roomCode, categoryCode, position, sortType = 0 }) {
   try {
     let result
     if (sortType === 0) {
-      result = await getGoods({pageNo, pageSize, goodsName, roomCode, categoryCode})
+      result = await getGoods({pageNo, pageSize, goodsName, roomCode, position, categoryCode})
     } else {
       result = await getGroupBySortType({pageNo, pageSize, goodsName, roomCode, categoryCode, sortType})
     }
@@ -82,7 +82,10 @@ async function getGoodsList ({pageNo = 1, pageSize = 50, goodsName, roomCode, ca
     })
   }
 }
-
+/**
+ * 获取物品详情
+ * @param {Object} param0 物品详情 { pageNo, pageSize, roomCode, goodsTag }
+ */
 async function getGoodsDetail ({id}) {
   try {
     const result = await checkGoods({id})
@@ -95,10 +98,30 @@ async function getGoodsDetail ({id}) {
     })
   }
 }
+/**
+ * 软删除物品入回收站
+ * @param {Object} param0 更新物品 { id }
+ */
+async function softDeleteGoods({ id }) {
+  try {
+    console.log(id)
+    const goods = await softDestroyGoods({
+      id
+    })
+    return new SuccessModel(goods)
+  } catch (e) {
+    console.log(e)
+    return new ErrorModel({
+      code: '-1',
+      message: '删除物品失败'
+    })
+  }
+}
 
 module.exports = {
   add,
   update,
   getGoodsList,
-  getGoodsDetail
+  getGoodsDetail,
+  softDeleteGoods
 }

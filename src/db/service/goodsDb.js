@@ -26,7 +26,8 @@ async function addGoods({ goodsId, goodsName, goodsCount, roomCode, roomName, ca
     position,
     goodsTag,
     importantTag,
-    remark
+    remark,
+    deleteCode: 0
   })
   return result.dataValues
 }
@@ -46,7 +47,8 @@ async function updateGoods({ id, goodsId, goodsCount, roomCode, roomName, catego
     position,
     goodsTag,
     importantTag,
-    remark
+    remark,
+    deleteCode: 0
   }, {
     where: {
       id
@@ -59,9 +61,11 @@ async function updateGoods({ id, goodsId, goodsCount, roomCode, roomName, catego
  * 查询物品
  * @param {Object} param0 查询物品 { goodsId,goodsName,goodsCount,roomCode,category,goodsTag,remark }
  */
-async function getGoods({ pageNo = 1, pageSize = 50, goodsName, roomCode, categoryCode }) {
+async function getGoods({ pageNo = 1, pageSize = 50, goodsName, roomCode, categoryCode, position }) {
   // 拼接查询条件
-  const whereData = {}
+  const whereData = {
+    deleteCode: 0
+  }
   if (goodsName) {
     whereData.goodsName = {
       [Op.like]: `%${goodsName}%`
@@ -72,6 +76,9 @@ async function getGoods({ pageNo = 1, pageSize = 50, goodsName, roomCode, catego
   }
   if (categoryCode) {
     whereData.categoryCode = categoryCode
+  }
+  if (position) {
+    whereData.position = position
   }
   const result = await GoodsBox.findAndCountAll({
     limit: pageSize, // 每页多少条
@@ -95,7 +102,9 @@ async function getGoods({ pageNo = 1, pageSize = 50, goodsName, roomCode, catego
 async function getGroupBySortType({ pageNo = 1, pageSize = 50, goodsName, roomCode, categoryCode, sortType }) {
   const groupData = sortType === 1 ? 'position' : 'categoryName'
   // 拼接查询条件
-  const whereData = {}
+  const whereData = {
+    deleteCode: 0
+  }
   if (goodsName) {
     whereData.goodsName = {
       [Op.like]: `%${goodsName}%`
@@ -126,10 +135,28 @@ async function checkGoods ({id}) {
   return result
 }
 
+
+/**
+ * 删除物品入回收站
+ * @param {Object} param0 入回收站 { id }
+ */
+async function softDestroyGoods({ id }) {
+  const result = await GoodsBox.update(
+    {
+      deleteCode: 1
+    },{
+    where: {
+      id
+    }
+  })
+  return result
+}
+
 module.exports = {
   addGoods,
   getGoods,
   getGroupBySortType,
   checkGoods,
-  updateGoods
+  updateGoods,
+  softDestroyGoods
 }
