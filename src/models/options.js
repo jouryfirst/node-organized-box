@@ -16,13 +16,13 @@ const { addRoomFail, repeatRoom, editRoomFail, deleteRoomFail, addCategoryFail, 
  */
 async function addRoom ({ roomName }) {
   try {
-    const goods = await createRoom({
+    const result = await createRoom({
       roomName
     })
-    if (goods === 'repeat') {
+    if (result === 'repeat') {
       return new ErrorModel(repeatRoom)
     }
-    return new SuccessModel(goods)
+    return new SuccessModel(result)
   } catch (e) {
     console.log(e)
     return new ErrorModel(addRoomFail)
@@ -35,14 +35,14 @@ async function addRoom ({ roomName }) {
  */
 async function editRoom ({ id, roomName }) {
   try {
-    const goods = await updateRoom({
+    const result = await updateRoom({
       id,
       roomName
     })
-    if (goods === 'repeat') {
+    if (result === 'repeat') {
       return new ErrorModel(repeatRoom)
     }
-    return new SuccessModel(goods)
+    return new SuccessModel(result)
   } catch (e) {
     console.log(e)
     return new ErrorModel(editRoomFail)
@@ -68,10 +68,10 @@ async function getRoomsList () {
  */
 async function deleteRoom ({ id }) {
   try {
-    const goods = await destroyRoom({
+    const result = await destroyRoom({
       id
     })
-    return new SuccessModel(goods)
+    return new SuccessModel(result)
   } catch (e) {
     console.log(e)
     return new ErrorModel(deleteRoomFail)
@@ -84,13 +84,13 @@ async function deleteRoom ({ id }) {
  */
 async function addCategory ({ categoryName }) {
   try {
-    const goods = await createCategory({
+    const result = await createCategory({
       categoryName
     })
-    if (goods === 'repeat') {
+    if (result === 'repeat') {
       return new ErrorModel(repeatCategory)
     }
-    return new SuccessModel(goods)
+    return new SuccessModel(result)
   } catch (e) {
     console.log(e)
     return new ErrorModel(addCategoryFail)
@@ -103,14 +103,14 @@ async function addCategory ({ categoryName }) {
  */
 async function editCategory ({ id, categoryName }) {
   try {
-    const goods = await updateCategory({
+    const result = await updateCategory({
       id,
       categoryName
     })
-    if (goods === 'repeat') {
+    if (result === 'repeat') {
       return new ErrorModel(repeatCategory)
     }
-    return new SuccessModel(goods)
+    return new SuccessModel(result)
   } catch (e) {
     console.log(e)
     return new ErrorModel(editCategoryFail)
@@ -136,10 +136,10 @@ async function getCategoriesList () {
  */
 async function deleteCategory ({ id }) {
   try {
-    const goods = await destroyCategory({
+    const result = await destroyCategory({
       id
     })
-    return new SuccessModel(goods)
+    return new SuccessModel(result)
   } catch (e) {
     console.log(e)
     return new ErrorModel(deleteCategoryFail)

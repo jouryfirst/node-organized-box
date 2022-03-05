@@ -123,6 +123,7 @@ async function getGroupBySortType({ pageNo = 1, pageSize = 50, goodsName, roomCo
     group: groupData,
     where: whereData
   })
+  console.log(result)
   result = formateGroup(result)
   return result
 }

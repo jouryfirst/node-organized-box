@@ -34,4 +34,5 @@ router.get('/getCategoriesList', enumRouter.getCategoriesList)
 // 删除物品类别
 router.get('/deleteCategory', enumRouter.deleteCategory)
 
+
 module.exports = router
