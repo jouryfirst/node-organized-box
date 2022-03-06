@@ -8,7 +8,7 @@
 const { GoodsBox } = require('../model')
 const Sequelize = require('sequelize')
 const { Op } = require("sequelize")
-const { formateGroup } = require('./formateFn')
+const { formateGroup, formateGroupByDate } = require('./formateFn')
 
 /**
  * 添加物品
@@ -123,7 +123,6 @@ async function getGroupBySortType({ pageNo = 1, pageSize = 50, goodsName, roomCo
     group: groupData,
     where: whereData
   })
-  console.log(result)
   result = formateGroup(result)
   return result
 }
@@ -153,11 +152,26 @@ async function softDestroyGoods({ id }) {
   return result
 }
 
+/**
+ * 按时间查询物品
+ * @param {Object} param0 按时间查询物品 { pageNo,pageSize,sortType }
+ */
+async function getGroupByDate() {
+  const groupData = [ Sequelize.fn('DATE_FORMAT',Sequelize.col('createdAt'), '%Y-%m-%d') ]
+  let result = await GoodsBox.findAll({
+    attributes: ['createdAt', [Sequelize.fn("COUNT", Sequelize.col('createdAt')), "count"]],
+    group: groupData
+  })
+  result = formateGroupByDate(result)
+  return result
+}
+
 module.exports = {
   addGoods,
   getGoods,
   getGroupBySortType,
   checkGoods,
   updateGoods,
-  softDestroyGoods
+  softDestroyGoods,
+  getGroupByDate
 }

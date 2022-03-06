@@ -6,7 +6,7 @@
  * @Description: controller
  */
 
-const {add, update, getGoodsList, getGoodsDetail, softDeleteGoods} = require('../models/box')
+const {add, update, getGoodsList, getGoodsDetail, softDeleteGoods, getGoodsByDate} = require('../models/box')
 
 const goodsRouter = {
   addGoods: async (ctx, next) => {
@@ -78,6 +78,9 @@ const goodsRouter = {
   deleteGoods: async (ctx, next) => {
     const {id} = ctx.request.query
     ctx.body = await softDeleteGoods({id})
+  },
+  getGoodsByDate: async (ctx, next) => {
+    ctx.body = await getGoodsByDate()
   }
 }
 

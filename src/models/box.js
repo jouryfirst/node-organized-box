@@ -6,7 +6,7 @@
  * @Description: boxModel
  */
 
-const { addGoods, updateGoods, getGoods, getGroupBySortType, checkGoods, softDestroyGoods } = require('../db/service/goodsDb')
+const { addGoods, updateGoods, getGoods, getGroupBySortType, checkGoods, softDestroyGoods, getGroupByDate } = require('../db/service/goodsDb')
 const { SuccessModel, ErrorModel } = require('./ResModel')
 const { addGoodsFail } = require('./ErrorModel')
 
@@ -117,11 +117,28 @@ async function softDeleteGoods({ id }) {
     })
   }
 }
+/**
+ * 按时间查询物品
+ * @param {Object} param0 按时间查询物品{  }
+ */
+async function getGoodsByDate () {
+  try {
+    const result = await getGroupByDate()
+    return new SuccessModel(result)
+  } catch (e) {
+    console.log(e)
+    return new ErrorModel({
+      code: '-1',
+      message: '获取详情失败'
+    })
+  }
+}
 
 module.exports = {
   add,
   update,
   getGoodsList,
   getGoodsDetail,
-  softDeleteGoods
+  softDeleteGoods,
+  getGoodsByDate
 }
