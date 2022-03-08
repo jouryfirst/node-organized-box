@@ -1,4 +1,4 @@
-const { getNumInfo } = require('../db/service/statistcsDb')
+const { getNumInfo, getGroupByDate } = require('../db/service/statistcsDb')
 const { SuccessModel, ErrorModel } = require('./ResModel')
 
 /**
@@ -17,7 +17,24 @@ async function getBaseInfo () {
     })
   }
 }
+/**
+ * 按时间查询物品
+ * @param {Object} param0 按时间查询物品{  }
+ */
+async function getGoodsByDate () {
+  try {
+    const result = await getGroupByDate()
+    return new SuccessModel(result)
+  } catch (e) {
+    console.log(e)
+    return new ErrorModel({
+      code: '-1',
+      message: '获取详情失败'
+    })
+  }
+}
 
 module.exports = {
-  getBaseInfo
+  getBaseInfo,
+  getGoodsByDate
 }

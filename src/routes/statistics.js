@@ -13,6 +13,8 @@ router.prefix('/api/statistics')
 // 统计信息-物品数量，房间数量，物品种类
 router.get('/getBaseInfo', statisticsRouter.getBaseInfo)
 
+// 获取物品添加情况
+router.get('/getGoodsByDate', statisticsRouter.getGoodsByDate)
 
 
 module.exports = router

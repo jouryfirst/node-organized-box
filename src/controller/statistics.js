@@ -8,12 +8,15 @@
  * @Description: controller-statitics
  */
 
-const { getBaseInfo,  } = require('../models/statistics')
+const { getBaseInfo, getGoodsByDate } = require('../models/statistics')
 
 
 const statisticsRouter = {
   getBaseInfo: async (ctx, next) => {
     ctx.body = await getBaseInfo()
+  },
+  getGoodsByDate: async (ctx, next) => {
+    ctx.body = await getGoodsByDate()
   }
 }
 

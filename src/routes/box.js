@@ -25,7 +25,4 @@ router.get('/getGoodsDetail', goodsRouter.getGoodsDetail)
 // 放入回收站
 router.get('/deleteGoods', goodsRouter.deleteGoods)
 
-// 获取物品添加情况
-router.get('/getGoodsByDate', goodsRouter.getGoodsByDate)
-
 module.exports = router

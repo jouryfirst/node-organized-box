@@ -152,26 +152,11 @@ async function softDestroyGoods({ id }) {
   return result
 }
 
-/**
- * 按时间查询物品
- * @param {Object} param0 按时间查询物品 { pageNo,pageSize,sortType }
- */
-async function getGroupByDate() {
-  const groupData = [ Sequelize.fn('DATE_FORMAT',Sequelize.col('createdAt'), '%Y-%m-%d') ]
-  let result = await GoodsBox.findAll({
-    attributes: ['createdAt', [Sequelize.fn("COUNT", Sequelize.col('createdAt')), "count"]],
-    group: groupData
-  })
-  result = formateGroupByDate(result)
-  return result
-}
-
 module.exports = {
   addGoods,
   getGoods,
   getGroupBySortType,
   checkGoods,
   updateGoods,
-  softDestroyGoods,
-  getGroupByDate
+  softDestroyGoods
 }
