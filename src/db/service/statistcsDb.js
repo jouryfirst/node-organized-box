@@ -1,6 +1,7 @@
 const { GoodsBox } = require('../model')
 const Category  = require('../model/Category')
 const Room  = require('../model/Room')
+const Sequelize = require('sequelize')
 const { formateGroupByDate } = require('./formateFn')
 /**
  * 统计基本信息-物品数量，房间数量，分类数量
@@ -33,6 +34,7 @@ async function getGroupByDate() {
     group: groupData
   })
   result = formateGroupByDate(result)
+  console.log(result)
   return result
 }
 
